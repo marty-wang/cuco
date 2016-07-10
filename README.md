@@ -20,6 +20,7 @@ npm install cuco
 # Test
 
 ```
+npm install
 npm run test
 ```
 

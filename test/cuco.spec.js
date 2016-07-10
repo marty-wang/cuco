@@ -19,19 +19,19 @@ describe('curry', () => {
 
 describe('compose', () => {
   it('should work with one function', () => {
-    const combine = (...args) => args.join(' ');
-    const composed = cuco.compose(combine);
+    const fn1 = (input) => `${input} fn1`;
+    const composed = cuco.compose(fn1);
 
-    expect(composed('hello', 'world')).to.be.equal('hello world');
+    expect(composed('test')).to.be.equal('test fn1');
   });
 
   it('should work with multiple functions', () => {
-    const combine = (...args) => args.join(' ');
-    const shout = (x) => x.toUpperCase()
-    const emphasize = (x) => `${x}!`;
-    const composed = cuco.compose(emphasize, shout, combine);
+    const fn1 = (input) => `${input} fn1`;
+    const fn2 = (input) => `${input} fn2`;
+    const fn3 = (input) => `${input} fn3`;
+    const composed = cuco.compose(fn3, fn2, fn1);
 
-    expect(composed('hello', 'world')).to.be.equal('HELLO WORLD!');
+    expect(composed('test')).to.be.equal('test fn1 fn2 fn3');
   });
 });
 

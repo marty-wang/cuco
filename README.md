@@ -33,11 +33,11 @@ const curried = cuco.curry((a, b, c) => `${a} ${b} ${c}`)
 curried('a')('b')('c') // 'a b c'
 
 // compose
-const combine = (...args) => args.join(' ')
-const shout = (x) => x.toUpperCase()
-const emphasize = (x) => `${x}!`
-const composed = cuco.compose(emphasize, shout, combine)
-composed('hello', 'world') // 'HELLO WORLD!'
+const fn1 = (input) => `${input} fn1`;
+const fn2 = (input) => `${input} fn2`;
+const fn3 = (input) => `${input} fn3`;
+const composed = cuco.compose(fn3, fn2, fn1);
+composed('test') // 'test fn1 fn2 fn3'
 
 // composeP
 const fn1 = (input) => Promise.resolve(`${input} fn1`);

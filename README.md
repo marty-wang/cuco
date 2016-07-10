@@ -1,7 +1,8 @@
 # Essentials of JavaScript functional programming
 
-* Curry
-* Compose
+* curry
+* compose
+* composeP(romise)
 
 Most of JavaScript functional programming libraries are equipped with tons of functions you may never ever use.
 The ones you actually need and use are fairly small and easy to write, except for curry and compose, which are the heart of functional programming but kinda tricky.
@@ -35,7 +36,15 @@ curried('a')('b')('c') // 'a b c'
 const combine = (...args) => args.join(' ')
 const shout = (x) => x.toUpperCase()
 const emphasize = (x) => `${x}!`
-const yell = cuco.compose(emphasize, shout, combine)
-yell('hello', 'world') // 'HELLO WORLD!'
+const composed = cuco.compose(emphasize, shout, combine)
+composed('hello', 'world') // 'HELLO WORLD!'
 
+// composeP
+const fn1 = (input) => Promise.resolve(`${input} fn1`);
+const fn2 = (input) => `${input} fn2`;
+const fn3 = (input) => Promise.resolve(`${input} fn3`);
+const composed = cuco.composeP(fn3, fn2, fn1);
+composed('test').then((result) => {
+    // 'test fn1 fn2 fn3'
+});
 ```

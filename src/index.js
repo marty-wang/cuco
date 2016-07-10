@@ -16,9 +16,15 @@ const curry = fn =>
   };
 
 const compose = (...fns) =>
-  (...args) => fns.reduceRight((input, fn) => fn.apply(null, [].concat(input)), args);
+  (...args) => fns.reduceRight((previous, fn) => fn.apply(null, [].concat(previous)), args);
+
+const composeP = (...fns) =>
+  (...args) => fns.reduceRight(
+    (previous, fn, idx) => idx === fns.length - 1 ? fn.apply(null, previous) : previous.then(fn), args
+  );
 
 export default {
   curry,
-  compose
+  compose,
+  composeP
 };

@@ -1,6 +1,6 @@
 {
   "name": "cuco",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "CUrry and COmpose are all you need for JavaScript functional programming.",
   "main": "lib/cuco.js",
   "scripts": {
@@ -19,6 +19,7 @@
     "eslint": "1.7.2",
     "eslint-loader": "1.1.0",
     "mocha": "2.3.4",
+    "q": "^1.4.1",
     "webpack": "1.12.9",
     "yargs": "3.32.0"
   },
@@ -30,7 +31,8 @@
     "functional",
     "programming",
     "curry",
-    "compose"
+    "compose",
+    "promise"
   ],
   "author": "Mo Wang",
   "license": "MIT",

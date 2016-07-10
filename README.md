@@ -3,7 +3,10 @@
 * Curry
 * Compose
 
-You don't need use some library to do functional programming in JavaScript, because curry and compose are all you need.
+Most of JavaScript functional programming libraries are equipped with tons of functions you may never ever use.
+The ones you actually need and use are fairly small and easy to write, except for curry and compose, which are the heart of functional programming but kinda tricky.
+
+This library is just about curry and compose and the goal is to help you with JavaScript functional programming without bloating your app.
 
 **This is a universal library that can work in browser as well as nodejs.**
 

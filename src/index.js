@@ -1,10 +1,8 @@
 const curry = fn =>
-  (...args) => args.length >= fn.length ?
-    fn.apply(null, args) :
-    function internal(...args1) {
-      args = args.concat(args1);
-      return args.length >= fn.length ? fn.apply(null, args) : internal;
-    };
+  (...args) => args.length >= fn.length ? fn.apply(null, args) : function internal(...args1) {
+    args = args.concat(args1);
+    return args.length >= fn.length ? fn.apply(null, args) : internal;
+  };
 
 const compose = (...fns) =>
   (...args) => fns.reduceRight((previous, fn) => fn.apply(null, [].concat(previous)), args);

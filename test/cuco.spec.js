@@ -58,3 +58,28 @@ describe('composeP', () => {
     });
   });
 });
+
+describe('debounce', () => {
+  it('should only execute the function after the wait', (done) => {
+    let count = 1;
+    const fn = (input) => count *= input;
+    const debounced = cuco.debounce(fn, 50);
+
+    debounced(2);
+    debounced(2);
+
+    expect(count).to.be.equal(1);
+
+    Q.delay(10)
+      .then(() => debounced(2))
+      .delay(30)
+      .then(() => {
+        expect(count).to.be.equal(1);
+      })
+      .delay(20)
+      .then(() => {
+        expect(count).to.be.equal(2);
+        done();
+      });
+  });
+});

@@ -12,8 +12,18 @@ const composeP = (...fns) =>
     (previous, fn, idx) => idx === fns.length - 1 ? fn.apply(null, previous) : previous.then(fn), args
   );
 
+const debounce = (fn, wait) => {
+  let timer;
+
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(fn.bind(null, args), wait);
+  };
+};
+
 export default {
   curry,
   compose,
-  composeP
+  composeP,
+  debounce
 };

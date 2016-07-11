@@ -21,9 +21,27 @@ const debounce = (fn, wait) => {
   };
 };
 
+const throttle = (fn, wait) => {
+  let initial;
+  let timer;
+
+  return (...args) => {
+    if (!initial) {
+      fn.apply(null, args);
+      initial = true;
+    } else if (!timer) {
+      timer = setTimeout(() => {
+        fn.apply(null, args);
+        timer = null;
+      }, wait);
+    }
+  };
+};
+
 export default {
   curry,
   compose,
   composeP,
-  debounce
+  debounce,
+  throttle
 };

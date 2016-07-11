@@ -1,6 +1,6 @@
 {
   "name": "cuco",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "The essentials of JavaScript functional programming.",
   "main": "lib/cuco.js",
   "scripts": {
@@ -28,12 +28,14 @@
     "url": "https://github.com/marty-wang/cuco.git"
   },
   "keywords": [
+    "javascript",
     "functional",
     "programming",
     "curry",
     "compose",
     "promise",
-    "debounce"
+    "debounce",
+    "throttle"
   ],
   "author": "Mo Wang",
   "license": "MIT",

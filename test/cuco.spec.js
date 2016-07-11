@@ -61,25 +61,51 @@ describe('composeP', () => {
 
 describe('debounce', () => {
   it('should only execute the function after the wait', (done) => {
-    let count = 1;
-    const fn = (input) => count *= input;
+    let count = 0;
+    let result = 1;
+    const fn = (input) => {
+      count++;
+      result *= input;
+    };
     const debounced = cuco.debounce(fn, 50);
 
     debounced(2);
     debounced(2);
 
-    expect(count).to.be.equal(1);
+    expect(result).to.be.equal(1);
 
     Q.delay(10)
       .then(() => debounced(2))
       .delay(30)
       .then(() => {
-        expect(count).to.be.equal(1);
+        expect(result).to.be.equal(1);
       })
       .delay(20)
       .then(() => {
-        expect(count).to.be.equal(2);
+        expect(count).to.be.equal(1);
+        expect(result).to.be.equal(2);
         done();
       });
+  });
+});
+
+describe('throttle', () => {
+  it('should execute once within the given interval', (done) => {
+    let count = 0;
+    let result = 2;
+    const fn = (input) => {
+      count++;
+      result *= input;
+    };
+    const throttled = cuco.throttle(fn, 250);
+
+    throttled(result);
+    const interval = setInterval(() => throttled(result), 50);
+    setTimeout(() => {
+      clearInterval(interval);
+      expect(count).to.be.equal(3);
+      expect(result).to.be.equal(256);
+      done();
+    }, 600);
   });
 });

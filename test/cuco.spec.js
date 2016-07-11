@@ -1,6 +1,6 @@
 import chai from 'chai';
 import Q from 'q';
-import cuco from '../lib/cuco.js';
+import cuco from '../dist/cuco.js';
 
 chai.expect();
 

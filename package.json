@@ -1,8 +1,8 @@
 {
   "name": "cuco",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "The essentials of JavaScript functional programming.",
-  "main": "lib/cuco.js",
+  "main": "dist/cuco.js",
   "scripts": {
     "build": "webpack --mode=build",
     "dev": "webpack --progress --colors --watch --mode=dev",

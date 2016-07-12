@@ -109,6 +109,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	var debounce = function debounce(fn, wait) {
+	  var lastRequest = void 0;
 	  var timer = void 0;
 	
 	  return function () {
@@ -116,8 +117,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	      args[_key7] = arguments[_key7];
 	    }
 	
-	    clearTimeout(timer);
-	    timer = setTimeout(fn.bind(null, args), wait);
+	    lastRequest = Date.now();
+	
+	    var onTimeout = function onTimeout() {
+	      var elapsed = Date.now() - lastRequest;
+	
+	      if (elapsed < wait) {
+	        timer = setTimeout(onTimeout, wait - elapsed);
+	      } else {
+	        timer = null;
+	        fn.apply(null, args);
+	      }
+	    };
+	
+	    if (!timer) {
+	      timer = setTimeout(onTimeout, wait);
+	    }
 	  };
 	};
 	

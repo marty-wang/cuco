@@ -13,11 +13,26 @@ const composeP = (...fns) =>
   );
 
 const debounce = (fn, wait) => {
+  let lastRequest;
   let timer;
 
   return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(fn.bind(null, args), wait);
+    lastRequest = Date.now();
+
+    const onTimeout = () => {
+      const elapsed = Date.now() - lastRequest;
+
+      if (elapsed < wait) {
+        timer = setTimeout(onTimeout, wait - elapsed);
+      } else {
+        timer = null;
+        fn.apply(null, args);
+      }
+    };
+
+    if (!timer) {
+      timer = setTimeout(onTimeout, wait);
+    }
   };
 };
 

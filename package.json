@@ -1,6 +1,6 @@
 {
   "name": "cuco",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "The essentials of JavaScript functional programming.",
   "main": "dist/cuco.js",
   "scripts": {

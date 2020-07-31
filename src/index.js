@@ -12,21 +12,27 @@ const composeP = (...fns) =>
     (previous, fn, idx) => idx === fns.length - 1 ? fn.apply(null, previous) : previous.then(fn), args
   );
 
-const debounce = (fn, wait) => {
-  let lastRequest;
+export const debounce = (fn, wait) => {
   let timer;
+  let lastRequest;
+  let latestArgs;
 
   return (...args) => {
     lastRequest = Date.now();
+    latestArgs = args;
+
+    if (!timer) {
+      fn(...latestArgs);
+    }
 
     const onTimeout = () => {
       const elapsed = Date.now() - lastRequest;
 
       if (elapsed < wait) {
-        timer = setTimeout(onTimeout, wait - elapsed);
+        setTimeout(onTimeout, wait - elapsed);
       } else {
+        fn(...latestArgs);
         timer = null;
-        fn.apply(null, args);
       }
     };
 

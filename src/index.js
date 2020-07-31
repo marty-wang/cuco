@@ -36,19 +36,21 @@ const debounce = (fn, wait) => {
   };
 };
 
-const throttle = (fn, wait) => {
-  let initial;
-  let timer;
-
+// https://codeburst.io/throttling-and-debouncing-in-javascript-b01cad5c8edf
+const throttle = (func, limit) => {
+  let lastFunc;
+  let lastRan;
+  
   return (...args) => {
-    if (!initial) {
-      fn.apply(null, args);
-      initial = true;
-    } else if (!timer) {
-      timer = setTimeout(() => {
-        fn.apply(null, args);
-        timer = null;
-      }, wait);
+    if (!lastRan) {
+      func.apply(null, args);
+      lastRan = Date.now();
+    } else {
+      clearTimeout(lastFunc);
+      lastFunc = setTimeout(() => {
+        func.apply(null, args);
+        lastRan = Date.now();
+      }, limit - (Date.now() - lastRan));
     }
   };
 };

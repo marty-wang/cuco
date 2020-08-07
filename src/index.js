@@ -1,8 +1,6 @@
-const curry = fn =>
-  (...args) => args.length >= fn.length ? fn.apply(null, args) : function internal(...args1) {
-    args = args.concat(args1);
-    return args.length >= fn.length ? fn.apply(null, args) : internal;
-  };
+const curry = (f) => function currify(...args) {
+  return args.length >= f.length ? f.apply(null, args) : currify.bind(null, ...args);
+};
 
 const compose = (...fns) =>
   (...args) => fns.reduceRight((previous, fn) => fn.apply(null, [].concat(previous)), args);
@@ -12,7 +10,7 @@ const composeP = (...fns) =>
     (previous, fn, idx) => idx === fns.length - 1 ? fn.apply(null, previous) : previous.then(fn), args
   );
 
-const debounce = (fn, wait) => {
+const debounce = (fn, wait, leading=false) => {
   let timer;
   let lastRequest;
   let latestArgs;
@@ -21,7 +19,7 @@ const debounce = (fn, wait) => {
     lastRequest = Date.now();
     latestArgs = args;
 
-    if (!timer) {
+    if (!timer && leading) {
       fn(...latestArgs);
     }
 
@@ -31,7 +29,9 @@ const debounce = (fn, wait) => {
       if (elapsed < wait) {
         timer = setTimeout(onTimeout, wait - elapsed);
       } else {
-        fn(...latestArgs);
+        if (!leading) {
+          fn(...latestArgs);
+        }
         timer = null;
       }
     };
